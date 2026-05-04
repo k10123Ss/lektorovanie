@@ -1,28 +1,147 @@
 <!DOCTYPE html>
 <html lang="sk">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Moja prva stranka</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="container">
-      <h1>Tu je nadpis</h1>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Királyi gulyás Jakubnál</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #0b0b0b; color: #f5f5f5; }
 
-      <p>Tu pis text do prveho odseku.</p>
+    header {
+      padding: 20px 40px; display: flex; justify-content: space-between; align-items: center;
+      background: rgba(0,0,0,0.7); position: sticky; top: 0;
+    }
 
-      <h2>Tu je mensi nadpis</h2>
+    h1 { font-family: 'Playfair Display'; color: #c9a24a; }
 
-      <p>Tu mozu studenti pisat dalsi text alebo skusat vlastne HTML tagy.</p>
+    .hero {
+      height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1617191519105-d07b98b10de6');
+      background-size: cover;
+    }
 
-      <a href="#">Tu moze byt odkaz</a>
+    .btn {
+      background: linear-gradient(135deg, #c9a24a, #e6c873);
+      padding: 12px 24px; border-radius: 30px; border: none; cursor: pointer; margin: 5px;
+    }
 
-      <ul>
-        <li>Tu je prva polozka</li>
-        <li>Tu je druha polozka</li>
-        <li>Tu je tretia polozka</li>
-      </ul>
+    .category-buttons { text-align: center; padding: 40px; }
+
+    section { padding: 60px 40px; max-width: 1200px; margin: auto; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 20px; }
+
+    .card {
+      background: #141414; border-radius: 15px; overflow: hidden;
+      opacity: 0; transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .card.show { opacity: 1; transform: translateY(0); }
+
+    .card img { width: 100%; height: 160px; object-fit: cover; }
+    .card-content { padding: 15px; }
+    .price { color: #c9a24a; font-weight: bold; }
+
+  </style>
+
+  <script>
+    function addToCart(p){ alert(p+" pridaný 🛒"); }
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+      const obs = new IntersectionObserver(e=>{
+        e.forEach(x=>{ if(x.isIntersecting) x.target.classList.add('show'); });
+      });
+      document.querySelectorAll('.card').forEach(el=>obs.observe(el));
+    });
+  </script>
+</head>
+<body>
+
+<header>
+  <h1>Királyi gulyás Jakubnál</h1>
+</header>
+
+<section class="hero">
+  <h2>Luxusný svet gulášu</h2>
+  <p>Vyber si kategóriu</p>
+  <div class="category-buttons">
+    <a href="#gulase"><button class="btn">Sáčkové guláše</button></a>
+    <a href="#kotliky"><button class="btn">Kotlík y</button></a>
+    <a href="#varechy"><button class="btn">Varechy</button></a>
+  </div>
+</section>
+
+<section id="gulase">
+  <h2>Sáčkové guláše</h2>
+  <div class="grid">
+    <!-- 15 gulášov -->
+    <script>
+      const gulase = [
+        'Segedínsky','Jelení','Maďarský','Kotlíkový','Pikantný','Farmársky','Domáci','Lesnícky','Bravčový','Hovädzí','Zverinový','Paprikový','Špeciál','Tradičný','Extra pikantný'
+      ];
+      document.write(gulase.map(g=>`
+        <div class='card'>
+          <img src='https://images.unsplash.com/photo-1604909052743-94e838986d24'>
+          <div class='card-content'>
+            <h4>${g} guláš</h4>
+            <div class='price'>9,90 €</div>
+            <button class='btn' onclick="addToCart('${g} guláš')">Do košíka</button>
+          </div>
+        </div>
+      `).join(''));
+    </script>
+  </div>
+</section>
+
+<section id="kotliky">
+  <h2>Kotlíky</h2>
+  <div class="grid">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950" alt="Kotlík 10L">
+      <div class="card-content">
+        <h4>Kotlík 10L</h4>
+        <div class="price">79€</div>
+        <button class="btn" onclick="addToCart('kotlik 10L')">Do košíka</button>
+      </div>
     </div>
-  </body>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1594041680534-e8c8cdebd659" alt="Kotlík 15L">
+      <div class="card-content">
+        <h4>Kotlík 15L</h4>
+        <div class="price">99€</div>
+        <button class="btn" onclick="addToCart('kotlik 15L')">Do košíka</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="varechy">
+  <h2>Varechy</h2>
+  <div class="grid">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba" alt="Drevená varecha">
+      <div class="card-content">
+        <h4>Drevená varecha</h4>
+        <div class="price">12€</div>
+        <button class="btn" onclick="addToCart('drevená varecha')">Do košíka</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c" alt="Luxusná varecha">
+      <div class="card-content">
+        <h4>Luxusná varecha</h4>
+        <div class="price">19€</div>
+        <button class="btn" onclick="addToCart('luxusná varecha')">Do košíka</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
 </html>
